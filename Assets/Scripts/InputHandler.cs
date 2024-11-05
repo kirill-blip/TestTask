@@ -30,6 +30,16 @@ public class InputHandler : MonoBehaviour
 
     private void OnDisable()
     {
+        _inputActions.Player.Move.performed -= ctx => _moveDirection = ctx.ReadValue<Vector2>();
+        _inputActions.Player.Move.canceled -= ctx => _moveDirection = Vector2.zero;
+
+        _inputActions.Player.Look.performed -= ctx => _rotationDirection = ctx.ReadValue<Vector2>();
+        _inputActions.Player.Look.canceled -= ctx => _rotationDirection = Vector2.zero;
+
+        _inputActions.Player.Interact.performed -= ctx => IntercationKeyPressed?.Invoke(this, EventArgs.Empty);
+
+        _inputActions.UI.Escape.performed -= ctx => ActivateCursor();
+
         _inputActions.Disable();
     }
 

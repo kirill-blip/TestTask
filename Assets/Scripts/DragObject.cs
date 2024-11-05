@@ -14,7 +14,13 @@ public class DragObject : MonoBehaviour
     private void Awake()
     {
         _inputHandler = FindObjectOfType<InputHandler>();
+
         _inputHandler.IntercationKeyPressed += IntercationKeyPressedHandler;
+    }
+
+    private void OnDestroy()
+    {
+        _inputHandler.IntercationKeyPressed -= IntercationKeyPressedHandler;
     }
 
     private void Update()
@@ -67,7 +73,9 @@ public class DragObject : MonoBehaviour
         float mousePositionX = Input.mousePosition.x;
         float mousePositionY = Input.mousePosition.y;
 
-        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePositionX, mousePositionY, _pickUpRange));
+        float divider = 1.5f;
+
+        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePositionX, mousePositionY, _pickUpRange / divider));
         Vector3 moveDirection = (targetPosition - _selectedObject.transform.position);
 
         _selectedRigidbody.velocity = moveDirection * _moveSmoothness;

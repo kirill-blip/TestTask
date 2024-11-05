@@ -28,7 +28,7 @@ public class MouseRotation : MonoBehaviour
 
                 _rotationX = Mathf.Clamp(_rotationX, -_rotationAngle, _rotationAngle);
 
-                var rotationY = transform.localEulerAngles.y;
+                float rotationY = transform.localEulerAngles.y;
 
                 transform.localEulerAngles = new Vector3(_rotationX, rotationY);
                 break;
